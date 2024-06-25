@@ -60,6 +60,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
                 from llava.model.language_model.llava_llama import LlavaConfig
                 lora_cfg_pretrained = LlavaConfig.from_pretrained(model_path)
                 tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
+                lora_cfg_pretrained.pad_token_id = None
+                lora_cfg_pretrained.vocab_size = lora_cfg_pretrained.vocab_size - 1
                 model = LlavaLlamaForCausalLM.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
             print('Loading LLaVA from base model...')
             token_num, tokem_dim = model.lm_head.out_features, model.lm_head.in_features
