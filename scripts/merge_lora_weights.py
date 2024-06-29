@@ -18,5 +18,5 @@ if __name__ == "__main__":
     parser.add_argument("--save-model-path", type=str, required=True)
 
     args = parser.parse_args()
-
+    assert 'lora' not in args.save_model_path
     merge_lora(args)
