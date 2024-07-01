@@ -63,7 +63,7 @@ class Conversation:
     sep2: str = None
     version: str = "Unknown"
     stop_token_ids: List[int] = None
-
+    add_generation_prompt: bool = False # Set to true when inference.
     skip_next: bool = False
 
     def get_prompt(self):
@@ -138,7 +138,7 @@ class Conversation:
                         message = "<image>" * len(images) + message
                     chat_template_messages.append({"role": role, "content": message})
 
-            ret = apply_chat_template(chat_template_messages, add_generation_prompt=False)
+            ret = apply_chat_template(chat_template_messages, add_generation_prompt=self.add_generation_prompt)
             return ret
             
         elif self.sep_style == SeparatorStyle.PLAIN:
