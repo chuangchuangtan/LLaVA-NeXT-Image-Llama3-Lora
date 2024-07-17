@@ -16,7 +16,7 @@ class CLIPVisionTower(nn.Module):
 
         if not delay_load:
             self.load_model()
-        elif getattr(args, 'unfreeze_mm_vision_tower', False):
+        elif getattr(args, 'unfreeze_mm_vision_tower', False) or getattr(args, 'mm_vision_tower_lr', False) : #enable load vision tower weight from llava-llama3
             self.load_model()
         else:
             self.cfg_only = CLIPVisionConfig.from_pretrained(self.vision_tower_name)
